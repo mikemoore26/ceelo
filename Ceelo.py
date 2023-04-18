@@ -37,21 +37,49 @@ class Celo():
         for i in range(3):
             self.dice[i] = Dice()
 
-    def play(self):
+    def shoot(self):
         text = f"{self.current_player.name} you rolled "
+
         curr_nums = []
         for die in self.dice.values():
             curr_nums.append(die.roll())
             text += f' {die.current_face} '
 
-
-        print(curr_nums)
         text += '\n'
         print(text)
 
-    def result(self, res):
-        res = []
-        if res.
+        return curr_nums
+
+    def play(self):
+
+        isShooting = True
+        while isShooting:
+            curr_nums = self.shoot()
+            res = self.result(curr_nums, self.current_player.name)
+            print(res)
+
+            if res == "WON" or res == "LOST":
+                isShooting = False
+
+
+    def result(self, res, name):
+
+        if 1 in res and 2 in res and 3 in res: # INSTANT LOST LOSS
+            print(f"{name}  LOST")
+            return 'LOST'
+
+        if 4 in res and 5 in res and 6 in res: # INSTANT WIN
+            print(f"{name}  WON")
+
+            return "WON"
+
+        if res[0] == res[1] == res[2]:
+            print(f"{name}  Triple WON")
+            return "WON"
+
+        return None
+
+
 
 
 if __name__ == '__main__':
